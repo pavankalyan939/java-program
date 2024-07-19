@@ -1,12 +1,50 @@
-26.Write a program to print hollow Square Dollar pattern?
-public class HollowSquareDollarPattern {
+30.Write a program to find whether the person is eligible for vote or not. And if that particular person is not eligible, then print how many years are left to be eligible.
+
+import java.util.Scanner;
+public class VoterEligibility {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter your age: ");
+        int age = scanner.nextInt();
+
+        if (age >= 18) {
+            System.out.println("You are eligible to vote!");
+        } else {
+            int yearsLeft = 18 - age;
+            System.out.println("You are not eligible to vote. You need to wait for " + yearsLeft + " more years.");
+        }
+        scanner.close();
+    }
+}
+
+
+31.Find the LCM and GCD of n numbers?
+
+import java.math.BigInteger;
+public class LCM_GCD_Calculator {
+    public static void main(String[] args) {
+        BigInteger lcm = BigInteger.ONE;
+        BigInteger gcd = new BigInteger(args[0]);
+
+        for (int i = 1; i < args.length; i++) {
+            BigInteger num = new BigInteger(args[i]);
+            lcm = lcm.multiply(num).divide(lcm.gcd(num));
+            gcd = gcd.gcd(num);
+        }
+
+        System.out.println("LCM: " + lcm);
+        System.out.println("GCD: " + gcd);
+    }
+}
+21.Write a program to print hollow square symbol pattern
+public class HollowSquarePattern {
     public static void main(String[] args) {
         int rows = 5;
-
+        
         for (int i = 1; i <= rows; i++) {
             for (int j = 1; j <= rows; j++) {
                 if (i == 1 || i == rows || j == 1 || j == rows) {
-                    System.out.print("$ ");
+                    System.out.print("* ");
                 } else {
                     System.out.print("  ");
                 }
@@ -17,62 +55,95 @@ public class HollowSquareDollarPattern {
 }
 
 
-27.Write a program to print inverted pyramid pattern.
-public class InvertedPyramidPattern {
+22.Write a program to print the below pattern
+
+public class PatternPrinter {
     public static void main(String[] args) {
-        int rows = 5;
-
-        for (int i = rows; i >= 1; --i) {
-            for (int j = 1; j <= rows - i; ++j) {
-                System.out.print(" ");
+        int rows = 4;
+ 
+        for (int i = 1; i <= rows; i++) {
+            for (int j = 1; j <= i; j++) {
+                System.out.print(i + " ");
             }
-
-            for (int k = 1; k <= 2 * i - 1; ++k) {
-                System.out.print("*");
-            }
-
             System.out.println();
         }
     }
 }
 
 
-28.Write a program to reverse a number using loop?(Get the input from user)
+23.Write a program to print the below pattern
 
-import java.util.Scanner;
-public class ReverseNumber {
+public class PatternPrinter {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter a number to reverse: ");
-        int number = scanner.nextInt();
-        int reversed = 0;
+        int rows = 5;
 
-        while (number != 0) {
-            int digit = number % 10;
-            reversed = reversed * 10 + digit;
-            number /= 10;
+        for (int i = 1; i <= rows; i++) {
+            for (int j = 1; j <= i; j++) {
+                System.out.print(j + " ");
+            }
+            System.out.println();
+        }
+    }
+}
+
+output:
+1 
+1 2 
+1 2 3 
+1 2 3 4 
+1 2 3 4 5 
+
+
+24.Write a program to print the below pattern
+public class PatternPrinter {
+    public static void main(String[] args) {
+        int n = 4; // Define the number of rows for the pattern
+
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= i; j++) {
+                System.out.print(i + " ");
+            }
+            System.out.println();
         }
 
-        System.out.println("Reversed number: " + reversed);
-        scanner.close();
+        for (int i = n - 1; i >= 1; i--) {
+            for (int j = 1; j <= i; j++) {
+                System.out.print(i + " ");
+            }
+            System.out.println();
+        }
     }
 }
 
+output:
+1
+2 2
+3  3  3    
+4  4   4   4
+3  3  3
+2  2
+1
 
-29.Write a program to convert the given decimal to binary and print the reverse of the binary decimal.
 
-import java.util.Scanner;
-
-public class DecimalToBinary {
+25.write a program to print the below pattern?
+public class NumberPattern {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter a decimal number: ");
-        int decimal = scanner.nextInt();
-        
-        String binary = Integer.toBinaryString(decimal);
-        System.out.println("Binary representation: " + binary);
-        
-        StringBuilder reverseBinary = new StringBuilder(binary).reverse();
-        System.out.println("Reverse of the binary: " + reverseBinary);
+        int rows = 4;
+        int number = 1;
+
+        for (int i = 1; i <= rows; i++) {
+            int square = number * number;
+            for (int j = 1; j <= i; j++) {
+                System.out.print(square + " ");
+                square = (number + 1) * (number + 1);
+                number++;
+            }
+            System.out.println();
+        }
     }
 }
+output:
+1 
+4 9 
+16 25 36 
+49 64 81 100 
