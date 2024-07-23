@@ -1,0 +1,199 @@
+1, 
+import java.util.Scanner;
+
+public class DaysConverter {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the number of days: ");
+        int days = scanner.nextInt();
+        int years = days / 365;
+        int weeks = (days % 365) / 7;
+        int remainingDays = days - (years * 365 + weeks * 7);
+        System.out.println("No. of years: " + years);
+        System.out.println("No. of weeks: " + weeks);
+        System.out.println("No. of days: " + remainingDays);
+        
+        scanner.close();
+    }
+}
+2.
+import java.util.HashSet;
+import java.util.Set;
+public class UniquePermutations {
+    public static void main(String[] args) {
+        String number = "122";
+        Set<String> uniquePermutations = new HashSet<>();
+        generatePermutations(number.toCharArray(), 0, uniquePermutations);
+        System.out.println("Unique permutations of " + number + ":");
+        for (String permutation : uniquePermutations) {
+            System.out.println(permutation);
+        }
+    }
+    public static void generatePermutations(char[] arr, int index, Set<String> set) {
+        if (index == arr.length - 1) {
+            set.add(new String(arr)); 
+        } else {
+            for (int i = index; i < arr.length; i++) {
+                swap(arr, index, i);
+                generatePermutations(arr, index + 1, set);
+                swap(arr, index, i);
+            }
+        }
+    }
+    public static void swap(char[] arr, int i, int j) {
+        char temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+}
+3.
+import java.util.Scanner;
+public class Factors {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter a positive integer: ");
+        int number = scanner.nextInt();
+        System.out.println("Number of factors of " + number + ": " + countFactors(number));
+        scanner.close();
+    }
+    public static int countFactors(int n) {
+        int count = 0;
+        for (int i = 1; i <= n; i++) {
+            if (n % i == 0) {
+                count++;
+            }
+        }
+        return count;
+    }
+}
+4)
+public class PrimeNumbers {
+
+    public static void main(String[] args) {
+        int N = 3;
+        int nthPrime = findNthPrime(N);
+        System.out.println(N + "rd Prime number is " + nthPrime);
+        int[] nextPrimes = findNextNPrimes(nthPrime, N);
+        System.out.print(N + " prime numbers after " + nthPrime + " are: ");
+        for (int i = 0; i < nextPrimes.length; i++) {
+            System.out.print(nextPrimes[i]);
+            if (i < nextPrimes.length - 1) {
+                System.out.print(", ");
+            }
+        }
+    }
+
+    public static boolean isPrime(int num) {
+        if (num < 2) {
+            return false;
+        }
+        for (int i = 2; i <= Math.sqrt(num); i++) {
+            if (num % i == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static int findNthPrime(int n) {
+        int count = 0;
+        int num = 1;
+        while (count < n) {
+            num++;
+            if (isPrime(num)) {
+                count++;
+            }
+        }
+        return num;
+    }
+
+    public static int[] findNextNPrimes(int startingPrime, int n) {
+        int[] primes = new int[n];
+        int count = 0;
+        int num = startingPrime + 1;
+        while (count < n) {
+            if (isPrime(num)) {
+                primes[count] = num;
+                count++;
+            }
+            num++;
+        }
+        return primes;
+    }
+}
+5)
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class PerfectSquares {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter lower range: ");
+        int lowerRange = scanner.nextInt();
+        System.out.print("Enter upper range: ");
+        int upperRange = scanner.nextInt();
+        
+        List<Integer> perfectSquares = findPerfectSquares(lowerRange, upperRange);
+        System.out.println(perfectSquares);
+    }
+
+    public static List<Integer> findPerfectSquares(int lower, int upper) {
+        List<Integer> perfectSquares = new ArrayList<>();
+        for (int i = (int)Math.ceil(Math.sqrt(lower)); i <= Math.floor(Math.sqrt(upper)); i++) {
+            int square = i * i;
+            if (sumOfDigits(square) < 10) {
+                perfectSquares.add(square);
+            }
+        }
+        return perfectSquares;
+    }
+
+    public static int sumOfDigits(int num) {
+        int sum = 0;
+        while (num > 0) {
+            sum += num % 10;
+            num /= 10;
+        }
+        return sum;
+    }
+}
+6)
+import java.util.HashSet;
+import java.util.Scanner;
+import java.util.Set;
+
+public class UniquePermutations {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Given Number: ");
+        String input = scanner.nextLine();
+        
+        Set<String> permutations = new HashSet<>();
+        boolean isNegative = input.startsWith("-");
+        
+        String numberStr = isNegative ? input.substring(1) : input;
+        
+        generatePermutations(numberStr, "", permutations);
+        
+        System.out.println("Permutations are:");
+        for (String perm : permutations) {
+            System.out.println(isNegative ? "-" + perm : perm);
+        }
+    }
+    
+    private static void generatePermutations(String str, String prefix, Set<String> permutations) {
+        int n = str.length();
+        if (n == 0) {
+            permutations.add(prefix);
+        } else {
+            for (int i = 0; i < n; i++) {
+                generatePermutations(str.substring(0, i) + str.substring(i + 1), prefix + str.charAt(i), permutations);
+            }
+        }
+    }
+}
+7)
