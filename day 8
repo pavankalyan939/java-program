@@ -1,0 +1,220 @@
+Generate a Java code to find the sum of N numbers using array and throw ArrayIndexOutOfBoundsException when the loop variable beyond the size N.
+
+public class SumArray {
+    public static void main(String[] args) {
+        // Define the size of the array
+        int N = 5; // You can change this to any desired value
+
+        // Initialize the array with N elements
+        int[] numbers = new int[N];
+
+        // Populate the array with some sample values
+        for (int i = 0; i < N; i++) {
+            numbers[i] = i + 1; // For example, fill with numbers 1 to N
+        }
+
+        try {
+            // Call the method to calculate the sum of the array
+            int sum = calculateSum(numbers, N);
+            System.out.println("Sum of the array elements: " + sum);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Caught an ArrayIndexOutOfBoundsException: " + e.getMessage());
+        }
+    }
+
+    // Method to calculate the sum of the first N elements of the array
+    public static int calculateSum(int[] array, int N) {
+        int sum = 0;
+
+        // Loop through the array and calculate the sum
+        for (int i = 0; i <= N; i++) { // Note: this loop is intentionally incorrect to demonstrate the exception
+            // If the loop variable exceeds the size of the array, throw an ArrayIndexOutOfBoundsException
+            if (i >= array.length) {
+                throw new ArrayIndexOutOfBoundsException("Index " + i + " is out of bounds for array length " + array.length);
+            }
+            sum += array[i];
+        }
+
+        return sum;
+    }
+}
+Using the concepts of thread with implementing Runnable interface in Java to find whether a given number is prime or not
+public class PrimeChecker implements Runnable {
+    private final int number;
+    private boolean isPrime;
+
+    public PrimeChecker(int number) {
+        this.number = number;
+    }
+
+    @Override
+    public void run() {
+        isPrime = checkPrime(number);
+    }
+
+    private boolean checkPrime(int num) {
+        if (num <= 1) return false;
+        if (num == 2) return true;
+        if (num % 2 == 0) return false;
+
+        for (int i = 3; i * i <= num; i += 2) {
+            if (num % i == 0) return false;
+        }
+        return true;
+    }
+
+    public boolean isPrime() {
+        return isPrime;
+    }
+
+    public static void main(String[] args) {
+        if (args.length != 1) {
+            System.out.println("Usage: java PrimeChecker <number>");
+            return;
+        }
+
+        int number;
+        try {
+            number = Integer.parseInt(args[0]);
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid number format.");
+            return;
+        }
+
+        PrimeChecker primeChecker = new PrimeChecker(number);
+        Thread thread = new Thread(primeChecker);
+        thread.start();
+
+        try {
+            thread.join(); // Wait for the thread to finish
+        } catch (InterruptedException e) {
+            System.out.println("Thread was interrupted.");
+            return;
+        }
+
+        if (primeChecker.isPrime()) {
+            System.out.println(number + " is a prime number.");
+        } else {
+            System.out.println(number + " is not a prime number.");
+        }
+    }
+}
+Generate a Java code to handle Exceptions such as Arithmetic Exception, ArrayIndexOutOfBoundsException, NullPointerException using Multi-Catch Statements.
+public class MultiCatchExample {
+
+    public static void main(String[] args) {
+        int[] numbers = {1, 2, 3}; // Example array
+        String text = null; // Example null string
+
+        try {
+            // Example of ArithmeticException
+            int result = 10 / 0;
+
+            // Example of ArrayIndexOutOfBoundsException
+            System.out.println(numbers[10]);
+
+            // Example of NullPointerException
+            System.out.println(text.length());
+
+        } catch (ArithmeticException | ArrayIndexOutOfBoundsException | NullPointerException e) {
+            System.out.println("An exception occurred: " + e.getMessage());
+            e.printStackTrace(); // Optional: Print stack trace for debugging
+        }
+
+        System.out.println("Program continues after exception handling.");
+    }
+}
+Create a java program to construct the volume of Box using default constructor method.
+public class Box {
+    private double length;
+    private double width;
+    private double height;
+
+    public Box() {
+        this.length = 1.0; // Default length
+        this.width = 1.0;  // Default width
+        this.height = 1.0; // Default height
+    }
+
+    public double calculateVolume() {
+        return length * width * height;
+    }
+
+    public void displayDetails() {
+        System.out.println("Box dimensions:");
+        System.out.println("Length: " + length);
+        System.out.println("Width: " + width);
+        System.out.println("Height: " + height);
+        System.out.println("Volume: " + calculateVolume());
+    }
+
+    public static void main(String[] args) {
+        Box box = new Box();
+
+        box.displayDetails();
+    }
+}
+Using the concepts of thread with implementing Runnable interface in Java to generate Fibonacci series.
+// FibonacciRunnable.java
+public class FibonacciRunnable implements Runnable {
+    private final int number;
+
+    // Constructor to initialize the number of terms in the Fibonacci series
+    public FibonacciRunnable(int number) {
+        this.number = number;
+    }
+
+    @Override
+    public void run() {
+        generateFibonacci(number);
+    }
+
+    // Method to generate and print the Fibonacci series
+    private void generateFibonacci(int n) {
+        if (n <= 0) {
+            System.out.println("Number of terms should be greater than 0.");
+            return;
+        }
+
+        long a = 0, b = 1;
+        System.out.print("Fibonacci Series: ");
+        
+        for (int i = 0; i < n; i++) {
+            System.out.print(a + " ");
+            long next = a + b;
+            a = b;
+            b = next;
+        }
+        System.out.println(); // For a new line after the series
+    }
+
+    public static void main(String[] args) {
+        if (args.length != 1) {
+            System.out.println("Usage: java FibonacciRunnable <number_of_terms>");
+            return;
+        }
+
+        int number;
+        try {
+            number = Integer.parseInt(args[0]);
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid number format. Please enter a valid integer.");
+            return;
+        }
+
+        // Create a Runnable instance and a Thread to run it
+        FibonacciRunnable fibonacciRunnable = new FibonacciRunnable(number);
+        Thread thread = new Thread(fibonacciRunnable);
+
+        // Start the thread
+        thread.start();
+
+        // Optionally wait for the thread to finish
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            System.out.println("Thread was interrupted.");
+        }
+    }
+}
+
